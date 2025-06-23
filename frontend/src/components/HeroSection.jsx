@@ -53,7 +53,7 @@ const HeroSection = () => {
 
         {/* Center content - spans columns 3-10 */}
         <div className="col-start-1 col-span-12 lg:col-start-3 lg:col-span-8 h-full relative flex items-center">
-          <div className="w-4/5 mx-auto text-center py-16 lg:py-28">
+          <div className="w-full mx-auto text-center py-16 lg:py-28">
             <h1 className="sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#312E41] mx-auto leading-tight">
               <span className="font-['Outfit'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                 "
