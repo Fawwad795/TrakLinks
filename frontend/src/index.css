@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import "tailwindcss";
+
+body,
+p {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+li {
+  font-family: "Poppins", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #f9f9f9;
+    background-image: url("/Grid-bg.png");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: center top;
+    min-height: 100vh;
+  }
+
+  a {
+    color: #312e41;
+  }
+}
+
+/* 3D effect for carousel */
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
