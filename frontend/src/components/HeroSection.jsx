@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import SplitText from "../lib/SplitText";
 
 const HeroSection = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,10 @@ const HeroSection = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleAnimationComplete = () => {
+    setAnimationComplete(true);
+  };
 
   return (
     <div className="w-full relative mb-7.5">
@@ -54,21 +60,35 @@ const HeroSection = () => {
         {/* Center content - spans columns 3-10 */}
         <div className="col-start-1 col-span-12 lg:col-start-3 lg:col-span-8 h-full relative flex items-center">
           <div className="w-full mx-auto text-center py-16 lg:py-28">
-            <h1 className="sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#312E41] mx-auto leading-tight">
-              <span className="font-['Outfit'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                "
-              </span>{" "}
-              The No-Code Tool for Click-Worthy Links.{" "}
-              <span className="font-['Outfit'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                "
-              </span>
+            <h1 className="sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#FFFFFF] mx-auto px-20 leading-tight">
+              <SplitText
+                text="The No-Code Tool for Click-Worthy Links."
+                splitType="words, chars"
+                delay={50}
+                duration={0.8}
+                from={{ opacity: 0, y: 20 }}
+                to={{ opacity: 1, y: 0 }}
+                ease="power4.out"
+                threshold={0.2}
+                textAlign="center"
+                className="inline-block"
+                onLetterAnimationComplete={handleAnimationComplete}
+              />{" "}
             </h1>
-            <p className="pt-6 max-w-md mx-auto text-center text-[#312E41] text-base sm:text-lg">
+            <p
+              className={`pt-0 max-w-md mx-auto text-center text-[#FFFFFF]/60 sm:text-md transition-opacity duration-500 ${
+                animationComplete ? "opacity-100" : "opacity-0"
+              }`}
+            >
               Create branded links, track clicks, and analyse analytics — all
               without writing a single line of code.
             </p>
 
-            <button className="group relative inline-flex items-center px-5 sm:px-6 py-2 sm:py-3 mt-8 sm:mt-12 bg-[#312E41] text-white text-sm sm:text-base rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:pl-6 hover:pr-10 cursor-pointer">
+            <button
+              className={`group relative inline-flex items-center px-5 sm:px-6 py-2 sm:py-3 mt-8 sm:mt-12 bg-[#FFF] text-black text-sm sm:text-base rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:pl-6 hover:pr-10 cursor-pointer ${
+                animationComplete ? "opacity-100" : "opacity-0"
+              }`}
+            >
               <span className="absolute inset-0 w-0 bg-[#695BC4] z-0 transition-all duration-300 ease-in-out group-hover:w-full"></span>
 
               <span className="relative z-10 whitespace-nowrap">
@@ -103,24 +123,16 @@ const HeroSection = () => {
         >
           <div className="text-center w-full ">
             <div className="relative inline-block">
-              <h1
-                className={`sm:text-2xl md:text-3xl lg:text-4xl font-[600] mx-auto text-center pb-4 ${
-                  scrolled ? "text-[#695BC4]" : "text-[#695BC4]"
-                }`}
-              >
+              <h1 className="sm:text-2xl md:text-3xl lg:text-4xl font-[600] mx-auto text-center pb-4 text-white">
                 Streamlined Simplicity. Robust Results.
               </h1>
               <div
-                className={`absolute bottom-0 left-0 h-0.5 bg-[#695BC4] transition-all duration-1500 ease in ease-out ${
+                className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-1500 ease in ease-out ${
                   scrolled ? "w-full" : "w-0"
                 }`}
               ></div>
             </div>
-            <p
-              className={`pt-2 sm:w-4/5 lg:w-3/4 mx-auto text-center text-base sm:text-md ${
-                scrolled ? "text-[#695BC4]" : "text-[#695BC4]"
-              }`}
-            >
+            <p className="pt-2 sm:w-4/5 lg:w-3/4 mx-auto text-center sm:text-md text-white/60">
               TrakLinks lets you shorten, personalize, and monitor your links —
               all in just a few clicks. Built to help you drive engagement, no
               matter where your links go.

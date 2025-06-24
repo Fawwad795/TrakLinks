@@ -3,7 +3,7 @@ import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 
 const FooterSection = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0F0C29] via-[#0F0C29] to-[#1C1A3B] text-white py-12">
+    <footer className="border-t bg-gradient-to-r from-[#0F0C29] via-[#0F0C29] to-[#1C1A3B] text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top section with logo and navigation columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
