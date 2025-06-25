@@ -3,6 +3,10 @@
 
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 body,
 p {
   font-family: "Roboto", sans-serif;
@@ -32,13 +36,4 @@ li {
   a {
     color: #ffffff;
   }
-}
-
-/* 3D effect for carousel */
-.perspective {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
 }

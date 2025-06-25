@@ -102,7 +102,7 @@ const FeaturesSection = () => {
   };
 
   return (
-    <div className="w-full relative py-7.5">
+    <div id="features" className="w-full relative py-7.5">
       <div className="w-full max-w-7xl mx-auto px-4 grid grid-cols-12 relative">
         {/* Background container */}
         <div className="w-full h-auto col-span-10 col-start-2 rounded-lg">

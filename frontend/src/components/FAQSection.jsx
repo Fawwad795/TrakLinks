@@ -11,7 +11,7 @@ const FAQSection = () => {
   };
 
   return (
-    <div className="w-full relative py-7.5">
+    <div id="faqs" className="w-full relative py-7.5">
       <div className="w-full max-w-7xl mx-auto px-4 grid grid-cols-12 relative">
         <div className="col-start-2 col-span-10 relative flex items-center">
           <h2 className="sm:text-2xl md:text-3xl lg:text-4xl font-[600] col-span-4 w-full text-center text-white">

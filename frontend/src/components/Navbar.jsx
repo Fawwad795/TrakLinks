@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { navItems } from "../constants/navItems";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +30,33 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  // function to handle navigation clicks
+  const handleNavClick = (item) => {
+    if (item.href.startsWith("#")) {
+      // For anchor links, navigate to home first then scroll
+      if (window.location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(item.href.substring(1));
+          if (element) {
+            element.scrollIntoView({ behaviour: "smooth" });
+          }
+        }, 100);
+      } else {
+        // already on landing page, just scroll
+        const element = document.getElementById(item.href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behaviour: "smooth" });
+        }
+      }
+    } else if (item.href.startsWith("/")) {
+      // for internal routes
+      navigate(item.href);
+    }
+    // close mobile menu after navigation
+    setMenuOpen(false);
+  };
+
   return (
     <>
       {/* Original navbar that shows at the top */}
@@ -36,27 +65,30 @@ export default function Navbar() {
           <div className="w-full max-w-[1400px] mx-auto px-4 grid grid-cols-12 items-center h-full">
             {/* Logo: columns 1-6 */}
             <div className="col-start-2 col-span-5 flex items-center">
-              <span className="font-[700] text-[20px] text-[#FFFFFF]">
+              <a
+                href="#landingPage"
+                className="font-[700] text-[20px] text-[#FFFFFF]"
+              >
                 TrakLinks.
-              </span>
+              </a>
             </div>
 
             {/* Nav Items for md+ screens: columns 7-11 */}
             <div className="col-span-5 h-full pr-[10px] flex items-center justify-end">
               <div className="hidden lg:flex pt-[3px] justify-end items-center h-full space-x-8">
                 {navItems.map((item) => (
-                  <a
+                  <button
                     key={item.label}
-                    href={item.href}
+                    onClick={() => handleNavClick(item)}
                     className={
-                      `font-[500] transition no-underline text-[16px] px-[8px] py-[6px] duration-150 hover:text-[#695BC4]` +
+                      `font-[500] text-white transition no-underline text-[16px] px-[8px] py-[6px] duration-150 hover:text-[#695BC4] cursor-pointer` +
                       (item.label === "Sign Up"
                         ? " border border-white rounded-[5px] hover:border-[#695BC4]"
                         : "")
                     }
                   >
                     {item.label}
-                  </a>
+                  </button>
                 ))}
               </div>
 
@@ -136,14 +168,13 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col items-start px-19 py-8 space-y-8">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                className="text-white text-3xl font-medium no-underline hover:text-gray-300 transition-colors"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => handleNavClick(item)}
+                className="text-white text-3xl font-medium no-underline hover:text-gray-300 transition-colors cursor-pointer"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -163,26 +194,29 @@ export default function Navbar() {
               <div className="flex justify-between items-center w-full">
                 {/* Logo */}
                 <div className="flex items-center">
-                  <span className="font-[700] text-[18px] text-[#312E41]">
+                  <a
+                    href="#landingPage"
+                    className="font-[700] text-[18px] text-[#312E41]"
+                  >
                     TrakLinks.
-                  </span>
+                  </a>
                 </div>
 
                 {/* Nav Items for md+ screens */}
                 <div className="hidden lg:flex items-center space-x-6">
                   {navItems.map((item) => (
-                    <a
+                    <button
                       key={item.label}
-                      href={item.href}
+                      onClick={() => handleNavClick(item)}
                       className={
-                        `font-[500] text-[#312E41] transition no-underline text-[15px] px-[8px] py-[5px] duration-150 hover:text-[#695BC4]` +
+                        `font-[500] text-[#312E41] transition no-underline text-[15px] px-[8px] py-[5px] duration-150 hover:text-[#695BC4] cursor-pointer` +
                         (item.label === "Sign Up"
                           ? " border border-black rounded-[5px] hover:border-[#695BC4]"
                           : "")
                       }
                     >
                       {item.label}
-                    </a>
+                    </button>
                   ))}
                 </div>
 
