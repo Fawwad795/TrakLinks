@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import FeaturesSection from "../components/FeaturesSection";
-import FAQSection from "../components/FAQSection";
-import FooterSection from "../components/FooterSection";
+import Navbar from "../components/LandingPageComp/Navbar";
+import HeroSection from "../components/LandingPageComp/HeroSection";
+import FeaturesSection from "../components/LandingPageComp/FeaturesSection";
+import FAQSection from "../components/LandingPageComp/FAQSection";
+import FooterSection from "../components/LandingPageComp/FooterSection";
 
 export default function LandingPage() {
   return (

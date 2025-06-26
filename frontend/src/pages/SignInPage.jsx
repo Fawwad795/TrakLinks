@@ -55,9 +55,8 @@ const RightSection = React.memo(() => {
   );
 });
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <div className="min-h-screen w-full items-center flex flex-col overflow-x-hidden overflow-y-auto relative">
@@ -74,24 +73,13 @@ const SignUpPage = () => {
             {/* Sign Up Form */}
             <div className="space-y-4 w-full flex flex-col items-center lg:items-start">
               <div className="text-center lg:text-left">
-                <h1 className="text-4xl font-bold text-white mb-2">Sign Up</h1>
+                <h1 className="text-4xl font-bold text-white mb-2">Sign In</h1>
                 <p className="text-white/40 text-sm">
-                  Sign up to enjoy the features of TrakLink
+                  Welcome back! Login to continue to your account.
                 </p>
               </div>
 
               <div className="space-y-3 w-full flex flex-col items-center lg:items-start">
-                <div className="w-full flex flex-col items-center lg:items-start">
-                  <label className="block text-white text-sm font-medium mb-1 w-3/4 text-left">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your name or a username"
-                    className="w-full px-4 py-2 bg-[hsl(246,55%,20%)] text-sm backdrop-blur-md rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
-                  />
-                </div>
-
                 <div className="w-full flex flex-col items-center lg:items-start">
                   <label className="block text-white text-sm font-medium mb-1 w-3/4 text-left">
                     Email
@@ -103,48 +91,25 @@ const SignUpPage = () => {
                   />
                 </div>
 
-                <div className="w-full flex flex-col items-center">
-                  <div className="w-full flex flex-col lg:flex-row gap-4">
-                    {/* Password Field */}
-                    <div className="w-full lg:w-1/2 relative">
-                      <label className="block text-white text-sm font-medium mb-1 text-left">
-                        Password
-                      </label>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter a password"
-                        className="w-full text-sm px-4 py-2 pr-10 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
-                      />
-                      <span
-                        className="absolute right-3 top-[34px] text-white/70 cursor-pointer"
-                        onClick={() => setShowPassword((prev) => !prev)}
-                      >
-                        {showPassword ? <FiEyeOff /> : <FiEye />}
-                      </span>
-                    </div>
-
-                    {/* Confirm Password Field */}
-                    <div className="w-full lg:w-1/2 relative">
-                      <label className="block text-white text-sm font-medium mb-1 text-left">
-                        Confirm Password
-                      </label>
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Re-enter"
-                        className="w-full text-sm px-4 py-2 pr-10 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
-                      />
-                      <span
-                        className="absolute right-3 top-[34px] text-white/70 cursor-pointer"
-                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                      >
-                        {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
-                      </span>
-                    </div>
-                  </div>
+                <div className="w-full flex flex-col items-center lg:items-start relative">
+                  <label className="block text-white text-sm font-medium mb-1 w-3/4 text-left">
+                    Password
+                  </label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className="w-full text-sm px-4 py-2 pr-10 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
+                  />
+                  <span
+                    className="absolute right-3 top-[34px] text-white/70 cursor-pointer"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                  </span>
                 </div>
 
                 <button className="w-full bg-[hsl(246,55%,40%)] mt-2 hover:cursor-pointer hover:bg-[hsl(246,55%,50%)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
-                  Sign up
+                  Sign in
                 </button>
 
                 <div className="flex w-full items-center justify-center">
@@ -155,16 +120,16 @@ const SignUpPage = () => {
 
                 <button className="w-full bg-[hsl(0,0%,85%)] hover:bg-[hsl(0,0%,100%)] hover:cursor-pointer text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
                   <GoogleIcon />
-                  Sign up with Google
+                  Sign in with Google
                 </button>
 
                 <p className="w-full text-center text-white/40 text-sm">
-                  Already have an account?{" "}
+                  No Account yet?{" "}
                   <Link
-                    to="/signin"
+                    to="/signup"
                     className="text-[hsl(246,55%,50%)] hover:text-[hsl(246,55%,55%)]"
                   >
-                    Sign in
+                    Sign up here!
                   </Link>
                 </p>
               </div>
@@ -178,4 +143,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

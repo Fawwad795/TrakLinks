@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { FeatureCard } from "../assets/FeatureCard";
-import { featureCards } from "../constants/features";
+import { FeatureCard } from "../../assets/FeatureCard";
+import { featureCards } from "../../constants/features";
 import { AnimatePresence, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
-import SpotlightCard from "../lib/SpotlightCard";
+import SpotlightCard from "../../lib/SpotlightCard";
 
 const FeaturesSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);

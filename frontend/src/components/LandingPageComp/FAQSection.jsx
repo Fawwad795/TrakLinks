@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { faqData } from "../constants/faqData";
+import { faqData } from "../../constants/faqData";
 import { motion, AnimatePresence } from "framer-motion"; // eslint-disable-line no-unused-vars
-import SpotlightCard from "../lib/SpotlightCard";
+import SpotlightCard from "../../lib/SpotlightCard";
 
 const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);

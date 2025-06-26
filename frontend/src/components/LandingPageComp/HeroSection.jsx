@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import SplitText from "../lib/SplitText";
+import SplitText from "../../lib/SplitText";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [scrolled, setScrolled] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +27,10 @@ const HeroSection = () => {
 
   const handleAnimationComplete = () => {
     setAnimationComplete(true);
+  };
+
+  const handleBuildWithUsClick = () => {
+    navigate("/signup");
   };
 
   return (
@@ -85,11 +91,12 @@ const HeroSection = () => {
             </p>
 
             <button
-              className={`group relative inline-flex items-center px-5 sm:px-6 py-2 sm:py-3 mt-8 sm:mt-12 bg-[#FFF] text-black text-sm sm:text-base rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:pl-6 hover:pr-10 cursor-pointer ${
+              onClick={handleBuildWithUsClick}
+              className={`group relative inline-flex items-center px-5 sm:px-6 py-2 sm:py-3 mt-8 sm:mt-12 bg-[hsl(0,0%,90%)] text-black text-sm sm:text-base rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:pl-6 hover:pr-10 cursor-pointer ${
                 animationComplete ? "opacity-100" : "opacity-0"
               }`}
             >
-              <span className="absolute inset-0 w-0 bg-[#695BC4] z-0 transition-all duration-300 ease-in-out group-hover:w-full"></span>
+              <span className="absolute inset-0 w-0 bg-[hsl(0,0%,100%)] z-0 transition-all duration-300 ease-in-out group-hover:w-full"></span>
 
               <span className="relative z-10 whitespace-nowrap">
                 Build with us

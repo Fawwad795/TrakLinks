@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { navItems } from "../constants/navItems";
+import { navItems } from "../../constants/navItems";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
