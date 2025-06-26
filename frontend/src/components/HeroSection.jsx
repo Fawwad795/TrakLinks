@@ -117,11 +117,11 @@ const HeroSection = () => {
         {/* Section 2 */}
         <div
           id="section-2"
-          className={`col-start-2 col-span-10 h-full relative flex items-center p-5 rounded-lg transition-colors duration-500 ${
+          className={`col-start-2 col-span-10 backdrop-blur-md h-full relative flex items-center p-5 rounded-lg transition-colors duration-500 ${
             scrolled ? "bg-[#695BC4]/20" : "bg-[#695BC4]/0"
           }`}
         >
-          <div className="text-center w-full ">
+          <div className="text-center w-full">
             <div className="relative inline-block">
               <h1 className="sm:text-2xl md:text-3xl lg:text-4xl font-[600] mx-auto text-center pb-4 text-white">
                 Streamlined Simplicity. Robust Results.

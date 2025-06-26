@@ -107,7 +107,7 @@ const FeaturesSection = () => {
         {/* Background container */}
         <div className="w-full h-auto col-span-10 col-start-2 rounded-lg">
           <SpotlightCard
-            className="bg-[#695BC4]/20 rounded-lg"
+            className="backdrop-blur-md bg-[#695BC4]/20 rounded-lg"
             spotlightColor="rgba(105, 91, 196, 1)"
             spotlightSize={250}
           >

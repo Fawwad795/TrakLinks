@@ -29,7 +29,7 @@ const FAQSection = () => {
           {faqData.map((item, index) => (
             <div
               key={index}
-              className={`rounded-xl overflow-hidden transition-all duration-300 ${
+              className={`rounded-xl overflow-hidden transition-all backdrop-blur-md duration-300 ${
                 activeIndex === index
                   ? "shadow-lg border-[#695BC4]"
                   : "shadow border-transparent rounded-xl"
