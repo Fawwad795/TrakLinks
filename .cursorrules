@@ -1,0 +1,65 @@
+# Project Configuration for Cursor
+
+## Project Structure
+This is a full-stack web application with the following structure:
+- `frontend/` - React application with Vite and Tailwind CSS
+- `server/` - Django backend API
+
+## Technology Stack
+
+### Backend (server/)
+- **Framework**: Django
+- **Language**: Python
+- **API**: Django REST Framework (recommended)
+- **Database**: Django ORM with your preferred database
+- **Environment**: Use virtual environment (venv)
+
+### Frontend (frontend/)
+- **Framework**: React
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Language**: JavaScript/TypeScript
+- **Package Manager**: npm
+
+## Development Guidelines
+
+### General
+- Follow separation of concerns between frontend and backend
+- Use RESTful API design for backend endpoints
+- Implement proper error handling and validation
+- Use environment variables for configuration
+
+### Backend (Django)
+- Follow Django project structure conventions
+- Use Django REST Framework for API endpoints
+- Implement proper authentication/authorization
+- Use Django's built-in admin interface when appropriate
+- Follow PEP 8 coding standards
+- Use proper model relationships and migrations
+
+### Frontend (React + Vite + Tailwind)
+- Use functional components with hooks
+- Implement proper state management (Context API or external library)
+- Follow component-based architecture
+- Use Tailwind utility classes for styling
+- Implement responsive design
+- Use proper TypeScript types if using TypeScript
+- Follow React best practices and conventions
+
+## File Organization
+- Keep API calls in separate service files
+- Use proper component folder structure
+- Separate business logic from UI components
+- Use proper import/export conventions
+
+## Development Workflow
+- Backend runs on Django development server (typically port 8000)
+- Frontend runs on Vite dev server (typically port 5173)
+- Use CORS settings in Django to allow frontend requests
+- Environment variables for sensitive configuration
+
+When helping with this project:
+1. Understand that this is a Django + React stack
+2. Suggest appropriate patterns for each technology
+3. Consider the separation between frontend and backend
+4. Recommend best practices for full-stack development
