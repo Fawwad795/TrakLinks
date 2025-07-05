@@ -31,7 +31,7 @@ const SpotlightCard = ({
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    setOpacity(0.7);
+    setOpacity(1);
   };
 
   const handleMouseLeave = () => {
@@ -41,9 +41,10 @@ const SpotlightCard = ({
 
   useEffect(() => {
     if (isHovered && !isFocused) {
-      setOpacity(0.7);
+      setOpacity(1);
     }
   }, [isHovered, isFocused]);
+
   return (
     <div
       ref={divRef}
@@ -52,22 +53,13 @@ const SpotlightCard = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden ${className}`}
+      className={`relative ${className}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 transition-all duration-300 ease-out"
+        className="pointer-events-none absolute -inset-px z-0 transition-all duration-300"
         style={{
           opacity,
           background: `radial-gradient(circle ${spotlightSize}px at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 70%)`,
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 transition-all duration-500 ease-out"
-        style={{
-          opacity: opacity * 0.3,
-          background: `radial-gradient(circle ${spotlightSize * 1.5}px at ${
-            position.x
-          }px ${position.y}px, ${spotlightColor}, transparent 80%)`,
         }}
       />
       {children}
