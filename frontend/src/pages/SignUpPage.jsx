@@ -1,66 +1,125 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Aurora from "../lib/Aurora";
-import SpotlightCard from "../lib/SpotlightCard";
 import { useState } from "react";
-import SplitText from "../lib/SplitText";
 import GoogleIcon from "../lib/icons/GoogleIcon";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiCheck, FiX } from "react-icons/fi";
+import { RightSection } from "../components/SignUpInConfirmComp/RightSection";
 
-const RightSection = React.memo(() => {
-  // Move animation state into RightSection
-  const [animationComplete, setAnimationComplete] = useState(false);
-
-  const handleAnimationComplete = () => {
-    setAnimationComplete(true);
-  };
-
-  return (
-    <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-8">
-      <div className="w-full h-full rounded-lg">
-        <SpotlightCard
-          className="bg-[#695BC4]/20 backdrop-blur-md border-1 border-white/10 rounded-lg w-full h-full flex flex-col items-center justify-center gap-5"
-          spotlightColor="rgba(105, 91, 196, 1)"
-          spotlightSize={250}
-        >
-          <h1 className="font-bold text-xl text-[#FFFFFF]/60 z-10">
-            TrakLinks.
-          </h1>
-          <h1 className="sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#FFFFFF] mx-auto px-10 z-10 leading-tight">
-            <SplitText
-              text="The No-Code Tool for Click-Worthy Links."
-              splitType="words, chars"
-              delay={50}
-              duration={0.8}
-              from={{ opacity: 0, y: 20 }}
-              to={{ opacity: 1, y: 0 }}
-              ease="power4.out"
-              threshold={0.2}
-              textAlign="center"
-              className="inline-block"
-              onLetterAnimationComplete={handleAnimationComplete}
-            />
-          </h1>
-          <p
-            className={`pt-0 max-w-sm mx-auto z-10 text-center text-[#FFFFFF]/60 sm:text-md transition-opacity duration-500 ${
-              animationComplete ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Create branded links, track clicks, and analyse analytics — all
-            without writing a single line of code.
-          </p>
-        </SpotlightCard>
-      </div>
-    </div>
-  );
-});
+// Add this CSS to fix autofill background color
+const autofillStyle = `
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px hsl(246,55%,20%) inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+`;
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Form data state
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  
+  // Validation state
+  const [validation, setValidation] = useState({
+    firstName: { valid: false, touched: false },
+    lastName: { valid: false, touched: false },
+    email: { valid: false, touched: false },
+    password: { valid: false, touched: false },
+    confirmPassword: { valid: false, touched: false, matches: false }
+  });
+  
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Validate fields on change
+    validateField(name, value);
+  };
+  
+  // Field blur handler
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setValidation(prev => ({
+      ...prev,
+      [name]: { ...prev[name], touched: true }
+    }));
+  };
+  
+  // Validate individual field
+  const validateField = (name, value) => {
+    let isValid = false;
+    let matches = false;
+    
+    switch (name) {
+      case 'firstName':
+      case 'lastName':
+        isValid = value.trim().length > 0;
+        break;
+      case 'email':
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        break;
+      case 'password':
+        isValid = value.length >= 8;
+        break;
+      case 'confirmPassword':
+        isValid = value.length >= 8;
+        matches = value === formData.password;
+        break;
+      default:
+        break;
+    }
+    
+    if (name === 'confirmPassword') {
+      setValidation(prev => ({
+        ...prev,
+        [name]: { ...prev[name], valid: isValid, matches }
+      }));
+    } else {
+      setValidation(prev => ({
+        ...prev,
+        [name]: { ...prev[name], valid: isValid }
+      }));
+    }
+  };
+  
+  // Get validation status for a field
+  const getValidationStatus = (field) => {
+    const { valid, touched } = validation[field];
+    if (!touched) return null;
+    return valid ? 'valid' : 'invalid';
+  };
+  
+  // Get password match status
+  const getPasswordMatchStatus = () => {
+    const { touched } = validation.confirmPassword;
+    if (!touched) return null;
+    return validation.confirmPassword.matches ? 'valid' : 'invalid';
+  };
+  
+  // Check if form is valid
+  const isFormValid = () => {
+    return Object.values(validation).every(field => field.valid) && 
+      validation.confirmPassword.matches;
+  };
 
   return (
     <div className="min-h-screen w-full items-center flex flex-col overflow-x-hidden overflow-y-auto relative">
+      {/* Add style tag for autofill fix */}
+      <style>{autofillStyle}</style>
+      
       {/* Aurora Background - positioned absolutely behind everything */}
       <div className="absolute inset-0 z-0">
         <Aurora />
@@ -81,26 +140,89 @@ const SignUpPage = () => {
               </div>
 
               <div className="space-y-3 w-full flex flex-col items-center lg:items-start">
-                <div className="w-full flex flex-col items-center lg:items-start">
-                  <label className="block text-white text-sm font-medium mb-1 w-3/4 text-left">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your name or a username"
-                    className="w-full px-4 py-2 bg-[hsl(246,55%,20%)] text-sm backdrop-blur-md rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
-                  />
+                {/* First Name and Last Name Fields */}
+                <div className="w-full flex flex-col items-center">
+                  <div className="w-full flex flex-col lg:flex-row gap-4">
+                    {/* First Name Field */}
+                    <div className="w-full lg:w-1/2 relative">
+                      <label className="block text-white text-sm font-medium mb-1 text-left">
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                        placeholder="First name"
+                        className="w-full text-sm px-4 py-2 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
+                      />
+                      {getValidationStatus('firstName') === 'valid' && (
+                        <span className="absolute right-3 top-[34px] text-green-500">
+                          <FiCheck />
+                        </span>
+                      )}
+                      {getValidationStatus('firstName') === 'invalid' && (
+                        <span className="absolute right-3 top-[34px] text-red-500">
+                          <FiX />
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Last Name Field */}
+                    <div className="w-full lg:w-1/2 relative">
+                      <label className="block text-white text-sm font-medium mb-1 text-left">
+                        Last Name
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
+                        placeholder="Last name"
+                        className="w-full text-sm px-4 py-2 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
+                      />
+                      {getValidationStatus('lastName') === 'valid' && (
+                        <span className="absolute right-3 top-[34px] text-green-500">
+                          <FiCheck />
+                        </span>
+                      )}
+                      {getValidationStatus('lastName') === 'invalid' && (
+                        <span className="absolute right-3 top-[34px] text-red-500">
+                          <FiX />
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="w-full flex flex-col items-center lg:items-start">
-                  <label className="block text-white text-sm font-medium mb-1 w-3/4 text-left">
+                <div className="w-full flex flex-col items-center lg:items-start relative">
+                  <label className="block text-white text-sm font-medium mb-1 w-full text-left">
                     Email
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
                     placeholder="Enter your email"
                     className="w-full px-4 text-sm py-2 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
                   />
+                  {getValidationStatus('email') === 'valid' && (
+                    <span className="absolute right-3 top-[34px] text-green-500">
+                      <FiCheck />
+                    </span>
+                  )}
+                  {getValidationStatus('email') === 'invalid' && (
+                    <span className="absolute right-3 top-[34px] text-red-500">
+                      <FiX />
+                    </span>
+                  )}
+                  {getValidationStatus('email') === 'invalid' && validation.email.touched && (
+                    <p className="text-red-500 text-xs mt-1">Please enter a valid email address</p>
+                  )}
                 </div>
 
                 <div className="w-full flex flex-col items-center">
@@ -112,6 +234,10 @@ const SignUpPage = () => {
                       </label>
                       <input
                         type={showPassword ? "text" : "password"}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
                         placeholder="Enter a password"
                         className="w-full text-sm px-4 py-2 pr-10 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
                       />
@@ -121,6 +247,9 @@ const SignUpPage = () => {
                       >
                         {showPassword ? <FiEyeOff /> : <FiEye />}
                       </span>
+                      {getValidationStatus('password') === 'invalid' && validation.password.touched && (
+                        <p className="text-red-500 text-xs mt-1">Password must be at least 8 characters</p>
+                      )}
                     </div>
 
                     {/* Confirm Password Field */}
@@ -130,6 +259,10 @@ const SignUpPage = () => {
                       </label>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        onBlur={handleBlur}
                         placeholder="Re-enter"
                         className="w-full text-sm px-4 py-2 pr-10 backdrop-blur-md bg-[hsl(246,55%,20%)] rounded-lg text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-[hsl(246,55%,40%)] focus:border-transparent transition-all duration-200"
                       />
@@ -139,11 +272,21 @@ const SignUpPage = () => {
                       >
                         {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
                       </span>
+                      {getPasswordMatchStatus() === 'invalid' && validation.confirmPassword.touched && (
+                        <p className="text-red-500 text-xs mt-1">Passwords don't match</p>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <button className="w-full bg-[hsl(246,55%,40%)] mt-2 hover:cursor-pointer hover:bg-[hsl(246,55%,50%)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                <button 
+                  className={`w-full mt-2 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 ${
+                    isFormValid() 
+                      ? 'bg-[hsl(246,55%,40%)] hover:bg-[hsl(246,55%,50%)] hover:cursor-pointer' 
+                      : 'bg-[hsl(246,55%,30%)] opacity-70 cursor-not-allowed'
+                  }`}
+                  disabled={!isFormValid()}
+                >
                   Sign up
                 </button>
 

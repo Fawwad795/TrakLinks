@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link as LinkIcon, PlusCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CreateLinkButtonAlt = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
+    <Link to="/create-new-link">
     <button 
       className="w-full bg-white text-[#2B2376] py-3 px-10 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all duration-300 hover:bg-gray-100"
       onMouseEnter={() => setIsHovered(true)}
@@ -30,6 +32,7 @@ const CreateLinkButtonAlt = () => {
       </div>
       <span>Create New Link</span>
     </button>
+    </Link>
   );
 };
 
