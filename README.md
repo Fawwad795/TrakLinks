@@ -1,4 +1,4 @@
-# TrakLinks
+# TrakLinks.
 
 ## What is TrakLinks?
 
