@@ -47,7 +47,7 @@ const Links = () => {
             />
 
             {/* Filters and Search - Also fixed */}
-            <div className="px-6 mt-2 pb-4 flex flex-wrap justify-between items-center gap-4">
+            <div className="px-6 py-2 bg-[hsla(0,0%,100%,0.1)] flex flex-wrap justify-between items-center gap-4">
               <div 
                 ref={searchRef}
                 className={`relative flex-1 min-w-[240px] ${isSearchFocused ? '' : 'flex justify-center'}`}
