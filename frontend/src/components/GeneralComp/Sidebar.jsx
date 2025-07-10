@@ -16,13 +16,13 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
 
   return (
     <div 
-      className={`bg-white flex flex-col h-full border-r-2 border-[#000000]/10 relative ${isCollapsed ? 'p-3 min-w-full' : 'p-5'} shadow-lg`}
+      className={`bg-white flex flex-col h-full border-r-1 border-[#000000]/10 relative ${isCollapsed ? 'p-3 min-w-full' : 'p-5'} shadow-[2px_0_10px_rgba(0,0,0,0.05)]`}
       onMouseEnter={() => setShowCollapseIcon(true)}
       onMouseLeave={() => setShowCollapseIcon(false)}
     >
       {/* Collapse Button */}
       <div 
-        className={`absolute top-6 -right-3 bg-white rounded-full p-1 border border-gray-200 cursor-pointer shadow-sm transition-opacity duration-200 ${showCollapseIcon ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute top-6 -right-3 bg-white z-[100] rounded-full p-1 border border-gray-200 cursor-pointer shadow-md transition-opacity duration-200 ${showCollapseIcon ? 'opacity-100' : 'opacity-0'}`}
         onClick={handleToggleCollapse}
       >
         {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}

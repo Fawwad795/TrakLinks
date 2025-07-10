@@ -28,10 +28,24 @@ const Links = () => {
     }
   }, []);
 
+  // Handle click outside search to reset it when empty
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target) && !searchQuery) {
+        setIsSearchFocused(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [searchQuery]);
+
   return (
-    <div className="grid grid-cols-12 min-h-screen">
+    <div className="grid grid-cols-12 min-h-screen relative">
       {/* Sidebar - takes 3 columns when expanded, 1 when collapsed */}
-      <div className={`${isCollapsed ? 'col-span-1' : 'col-span-3'}`}>
+      <div className={`${isCollapsed ? 'col-span-1' : 'col-span-3'} h-screen sticky top-0 z-[200]`}>
         <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       </div>
 
@@ -40,7 +54,7 @@ const Links = () => {
         {/* Scrollable container for the entire content */}
         <div className="flex-1 flex flex-col overflow-auto custom-scrollbar scroll-container">
           {/* Header - Fixed at the top */}
-          <div className={`sticky top-0 z-10 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-sm' : 'bg-transparent'} transition-all duration-300`}>
+          <div className={`sticky top-0 z-[90] ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-sm' : 'bg-transparent'} transition-all duration-300`}>
             <Header 
               title="Links" 
               subtitle="Manage your shortened links." 
@@ -55,27 +69,31 @@ const Links = () => {
                 <FiSearch 
                   className={`${
                     isSearchFocused 
-                      ? 'absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-transform duration-500' 
-                      : 'absolute left-1/2 -translate-x-[80px] top-1/2 -translate-y-1/2 text-gray-400 transition-all duration-500'
+                      ? 'absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-all duration-500 ease-in-out' 
+                      : 'absolute left-1/2 -translate-x-[80px] top-1/2 -translate-y-1/2 text-gray-400 transition-all duration-500 ease-in-out'
                   }`} 
                 />
                 <input
                   type="text"
                   placeholder="Search links..."
-                  className={`w-full py-2 rounded-lg border transition-all duration-500 ${
+                  className={`w-full py-2 rounded-lg border transition-all duration-500 ease-in-out ${
                     isSearchFocused 
-                      ? 'pl-10 pr-4 bg-white/90 shadow-sm border-[#6366F1]/30 focus:outline-none focus:border-[#6366F1]' 
-                      : 'pl-0 pr-0 text-center bg-transparent/50 border-gray-200 placeholder:text-center focus:outline-none rounded-lg'
+                      ? 'pl-10 pr-4 bg-gray-100 shadow-sm border-[#6366F1]/30 focus:outline-none focus:border-[#6366F1]' 
+                      : 'pl-0 pr-0 text-center bg-gray-50/80 border-gray-200 placeholder:text-center focus:outline-none rounded-lg'
                   }`}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setIsSearchFocused(true)}
-                  onBlur={() => setIsSearchFocused(searchQuery !== '')}
+                  onBlur={() => {
+                    if (!searchQuery) {
+                      setTimeout(() => setIsSearchFocused(false), 100);
+                    }
+                  }}
                 />
               </div>
               
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/90 text-gray-700 border border-gray-200 hover:bg-gray-100 transition-colors duration-200">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/90 text-gray-700 border border-gray-200 hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
                   <FiFilter className="text-gray-500" />
                   <span className="text-sm">Filter</span>
                 </button>

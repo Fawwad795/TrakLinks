@@ -22,7 +22,7 @@ const LinkList = () => {
           <table className="w-full border-collapse bg-white">
             {/* Table Header */}
             <thead>
-              <tr className="bg-gradient-to-r from-[#1E1B4B] to-[#312e81] text-sm text-white">
+              <tr className="bg-gradient-to-r from-[#312e81] to-[#1E1B4B] text-sm text-white">
                 <th className="text-left py-4 px-6 font-medium rounded-tl-xl">Title</th>
                 <th className="text-left py-4 px-6 font-medium">Created At</th>
                 <th className="text-left py-4 px-6 font-medium">Destination</th>
