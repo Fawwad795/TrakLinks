@@ -1,18 +1,27 @@
 import { Bell, User } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DateRangeSelector from './DateRangeSelector';
 
 const Header = ({ title, subtitle }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Check if current page is dashboard or links
   const showDateSelector = location.pathname === '/dashboard' || location.pathname === '/links';
+  
+  // Check if current page is settings
+  const isSettingsPage = location.pathname === '/settings';
 
   // Handle date range change
   const handleDateRangeChange = (range) => {
     // Here you can add any additional logic needed when date range changes
     // For example, fetch new data based on the selected date range
     console.log('Date range changed:', range);
+  };
+  
+  // Navigate to settings page
+  const navigateToSettings = () => {
+    navigate('/settings');
   };
 
   return (
@@ -37,9 +46,16 @@ const Header = ({ title, subtitle }) => {
         </div>
 
         {/* User Profile */}
-        <div className="flex items-center cursor-pointer">
-          <div className="w-8 h-8 bg-[#2B2376] rounded-full flex items-center justify-center text-white">
-            <User size={16} />
+        <div 
+          className={`flex items-center cursor-pointer ${
+            isSettingsPage 
+              ? 'bg-[#2B2376] rounded-full p-1.5' 
+              : 'p-1.5 border border-gray-200 rounded-full hover:bg-[#DAD7F4]/20 hover:border-[#9488DD] transition-colors'
+          }`}
+          onClick={navigateToSettings}
+        >
+          <div className={`w-5 h-5 flex items-center justify-center ${isSettingsPage ? 'text-white' : 'text-gray-700'}`}>
+            <User size={20} />
           </div>
         </div>
       </div>
