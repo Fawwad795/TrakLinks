@@ -3,6 +3,16 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 
 const COLORS = ['#8B5CF6', '#EC4899', '#10B981', '#F59E0B', '#3B82F6'];
 
+// Custom legend icon renderer to display circles instead of squares
+const renderLegendIcon = (props) => {
+  const { fill } = props;
+  return (
+    <svg width={14} height={14} style={{ marginRight: 8 }}>
+      <circle cx={7} cy={7} r={7} fill={fill} />
+    </svg>
+  );
+};
+
 const OSChart = ({ data }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-4">
@@ -19,7 +29,7 @@ const OSChart = ({ data }) => {
               fill="#8884d8"
               paddingAngle={2}
               dataKey="value"
-              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+              label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
               labelLine={false}
             >
               {data.map((entry, index) => (
@@ -42,6 +52,9 @@ const OSChart = ({ data }) => {
               formatter={(value) => (
                 <span className="text-sm text-gray-700">{value}</span>
               )}
+              iconType="circle"
+              iconSize={10}
+              iconRenderer={renderLegendIcon}
             />
           </PieChart>
         </ResponsiveContainer>
